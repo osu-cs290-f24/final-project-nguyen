@@ -23,6 +23,7 @@ header {
   width: 100%;
   text-align: center;
   color: white;
+  position: relative;
 }
 
 header a {
@@ -30,6 +31,24 @@ header a {
   text-decoration: none;
   font-size: 2.5rem;
   font-weight: bold;
+}
+
+.user-login {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.user-login a {
+  font-size: 1.8rem;
+  color: white;
+  text-decoration: none;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.user-login a:hover {
+  color: #ffd700;
+  transform: scale(1.1);
 }
 
 /* Navigation Bar */
@@ -62,9 +81,20 @@ nav a:hover {
   padding: 30px;
   width: 90%;
   max-width: 1200px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  position: relative;
+}
+
+/* Background Theme for Item Grid */
+.item-grid {
+  background: linear-gradient(180deg, #f3f4f6, #eaeef3);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  align-items: start;
 }
 
 /* Item Card */
@@ -72,10 +102,9 @@ nav a:hover {
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  padding: 25px;
+  padding: 20px;
   text-align: center;
-  max-width: 500px;
-  margin: auto;
+  width: 100%;
 }
 
 .item-card img {
@@ -85,37 +114,37 @@ nav a:hover {
 }
 
 .item-details {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .item-details h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #444;
 }
 
 .item-details p {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #777;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 /* Buttons Section */
 .buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .buttons button {
   border: none;
-  padding: 12px 18px;
+  padding: 10px 15px;
   cursor: pointer;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
   color: white;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -135,30 +164,4 @@ nav a:hover {
 .buttons button:hover {
   transform: translateY(-2px);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Collection Page */
-#collection {
-  display: none;
-}
-
-.liked-items-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  width: 100%;
-}
-
-.liked-items-container .liked-item {
-  background: white;
-  border-radius: 8px;
-  padding: 10px;
-  text-align: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.liked-items-container img {
-  border-radius: 5px;
-  width: 100%;
-  height: auto;
 }
