@@ -16,31 +16,30 @@
         <a href="#">My Collection</a>
     </nav>
 
-    <div id="main-content">
+    <main id="main-content">
         <!-- Swiping Area -->
-        <div id="main-page">
+        <section id="main-page">
             <div class="item-card">
                 <img id="item-image" src="https://via.placeholder.com/400" alt="Clothing Item">
                 <div class="item-details">
-                    <!-- Automate this -->
                     <h2 id="item-name">Clothing Item Name</h2>
                     <p id="item-description">Short description of the clothing item goes here.</p>
                 </div>
                 <div class="buttons">
-                    <button class="heart-btn">Yes, I want!</button>
-                    <button class="cross-btn">No Thanks!</button>
-                    <button class="redo-btn">Redo</button>
+                    <button class="heart-btn"><span>&#9829;</span> Like</button>
+                    <button class="cross-btn"><span>&#10006;</span> Dislike</button>
+                    <button class="redo-btn"><span>&#8635;</span> Redo</button>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Collection Area -->
-        <div id="collection">
+        <section id="collection">
             <div class="liked-items-container">
-                <!-- Dynamic liked items will populate here (have to automate this) -->
+                <!-- Dynamic liked items will populate here -->
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
