@@ -1,8 +1,155 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-a {
-  color: #00B7FF;
+/* Global Styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make the content fit the entire viewport */
+  flex-direction: column;
+}
+
+/* Header Section */
+header {
+  background-color: #333;
+  padding: 50px 50px 0;
+  text-align: center;
+  font-size: 1.8rem;
+  width: 100%;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Navigation Bar */
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #555;
+  padding: 10px 0;
+  width: 100%;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 15px;
+  transition: background-color 0.2s ease;
+}
+
+nav a:hover {
+  background-color: #777;
+}
+
+/* Main Content Section */
+#main-content {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Item Card - Main Swiping UI */
+.item-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  text-align: center;
+  padding: 20px;
+  margin: 10px 0;
+}
+
+.item-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.item-details {
+  margin: 15px 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+}
+
+.buttons button {
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+}
+
+.heart-btn {
+  background-color: #31b323;
+  cursor: pointer;
+}
+
+.cross-btn {
+  background-color: #ff4e4e;
+  cursor: pointer;
+}
+
+.redo-btn {
+  background-color: #34495e;
+  cursor: pointer;
+}
+
+.heart-btn:hover {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.cross-btn:hover {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.redo-btn:hover {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+/* Collection Page */
+#collection {
+  display: none;
+  width: 100%;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.liked-items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  justify-items: center;
+}
+
+.liked-items-container .liked-item {
+  background: white;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.liked-items-container img {
+  border-radius: 5px;
+  max-width: 100%;
+  height: auto;
 }
