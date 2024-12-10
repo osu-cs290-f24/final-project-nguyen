@@ -84,16 +84,11 @@ nav a:hover {
     max-width: 1600px;
     position: relative;
 }
-
-/* Background Theme for Item Grid */
-.item-grid {
-    width: 100%;
-    gap: 30px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    justify-items: center;
-    align-items: start;
-    border-radius: 12px;
+#main-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 /* Item Card */
