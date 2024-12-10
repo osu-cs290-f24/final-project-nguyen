@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
             image: itemImage,
         };
 
-        // Add item to likedItems array
-        likedItems.push(likedItem);
+        // Only add item if it is not already liked
+        const isLiked = likedItems.some((item) => item.name === likedItem.name);
+        if (!isLiked) {
+            // Add item to likedItems array
+            likedItems.push(likedItem);
+        }
     });
 });
