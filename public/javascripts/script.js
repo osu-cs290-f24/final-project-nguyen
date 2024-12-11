@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
     // Define array to store liked items
-    const likedItems = [];
     const mainPage = document.getElementById("main-page");
     let currentIdx = 0;
     let items = [];
@@ -16,6 +15,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     };
 
+    // Fetch liked items from the database
+    const fetchLikedItems = async () => {
+        try {
+            const response = await fetch("/liked-items");
+            if (response.ok) {
+                return await response.json();
+            } else {
+                console.error("Failed to fetch liked items from database");
+                return [];
+            }
+        } catch (error) {
+            console.error("Error fetching liked items:", error);
+            return [];
+        }
+    };
+
+    // Function to display the current item
     const displayItem = () => {
         // Clear main page
         mainPage.textContent = "";
@@ -100,25 +116,67 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     // Function to handle like or dislike actions
-    const handleAction = (item, action) => {
-        // Check if the item is already in likedItems
-        const itemIndex = likedItems.findIndex(
-            (likedItems) =>
-                likedItems.itemName === item.itemName &&
-                likedItems.itemDescription === item.itemDescription &&
-                likedItems.itemImage === item.itemImage
+    const handleAction = async (item, action) => {
+        const likedItemsFromDb = await fetchLikedItems();
+
+        // Check if the item is already liked
+        const itemExists = likedItemsFromDb.some(
+            (likedItem) =>
+                likedItem.name === item.itemName &&
+                likedItem.description === item.itemDescription &&
+                likedItem.image === item.itemImage
         );
 
         // Add item to likedItems array if not already liked
-        if (action === "like" && itemIndex === -1) {
-            likedItems.push({
-                itemName: item.itemName,
-                itemDescription: item.itemDescription,
-                itemImage: item.itemImage,
-            });
-        } else if (action === "dislike" && itemIndex !== -1) {
-            // Remove item from likedItems array if it exists
-            likedItems.splice(itemIndex, 1);
+        if (action === "like" && !itemExists) {
+            // Save item to the database
+            try {
+                const response = await fetch("/liked-items", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: item.itemName,
+                        description: item.itemDescription,
+                        image: item.itemImage,
+                    }),
+                });
+
+                if (response.ok) {
+                    console.log("Liked item added to database");
+                } else {
+                    console.error("Failed to add liked item to database");
+                }
+            } catch (error) {
+                console.error("Error adding liked item to database:", error);
+            }
+        } else if (action === "dislike" && itemExists) {
+            // Remove item from the database
+            try {
+                const response = await fetch("/liked-items", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: item.itemName,
+                        description: item.itemDescription,
+                        image: item.itemImage,
+                    }),
+                });
+
+                if (response.ok) {
+                    console.log("Liked item removed from database");
+                } else {
+                    console.error("Failed to remove liked item from database");
+                }
+            } catch (error) {
+                console.error(
+                    "Error removing liked item from database:",
+                    error
+                );
+            }
         }
 
         // Refresh item
