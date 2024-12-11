@@ -121,11 +121,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 currentIdx--;
                 displayItem();
             } else {
-                console.log("No previous items to redo.");
+                alert("No previous items to redo.");
             }
         });
     };
-
 
     // Function to handle like or dislike actions
     const handleAction = async (item, action) => {
