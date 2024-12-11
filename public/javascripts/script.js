@@ -113,7 +113,19 @@ document.addEventListener("DOMContentLoaded", async () => {
         dislikeButton.addEventListener("click", () =>
             handleAction(item, "dislike")
         );
+
+        // Event listener for the redo button
+        redoButton.addEventListener("click", () => {
+            // Go back one index (only if not already at the first index)
+            if (currentIdx > 0) {
+                currentIdx--;
+                displayItem();
+            } else {
+                console.log("No previous items to redo.");
+            }
+        });
     };
+
 
     // Function to handle like or dislike actions
     const handleAction = async (item, action) => {
