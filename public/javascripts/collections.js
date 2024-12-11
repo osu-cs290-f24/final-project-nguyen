@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // If no items are liked, show a message
         if (likedItems.length === 0) {
-            container.innerHTML = "<p>You have not liked any items yet.</p>";
+            container.textContent = "You have not liked any items yet.";
+            container.classList.add("empty");
             return;
         }
 
@@ -17,11 +18,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             const itemElement = document.createElement("div");
             itemElement.classList.add("liked-item");
 
-            itemElement.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <h2>${item.name}</h2>
-                <p>${item.description}</p>
-            `;
+            const img = document.createElement("img");
+            img.src = item.image;
+            img.alt = item.name;
+
+            const h2 = document.createElement("h2");
+            h2.textContent = item.name;
+
+            const p = document.createElement("p");
+            p.textContent = item.description;
+
+            itemElement.appendChild(img);
+            itemElement.appendChild(h2);
+            itemElement.appendChild(p);
 
             container.appendChild(itemElement);
         });

@@ -91,7 +91,6 @@ nav a:hover {
     justify-content: center;
 }
 
-
 /* Item Card */
 .item-card {
     width: 100%;
@@ -183,10 +182,15 @@ nav a:hover {
     max-width: 1200px;
 }
 
+#liked-items-container.empty {
+    display: block;
+    text-align: center;
+}
+
 #liked-items-header {
     font-size: 2.5rem;
     color: #333;
-    text-align: left;
+    text-align: center;
     margin: 10px 0;
 }
 
@@ -203,7 +207,7 @@ nav a:hover {
 .liked-item img {
     width: 100%;
     aspect-ratio: 1 / 1; /* Adjust for consistent sizing */
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
 }
 
@@ -223,7 +227,10 @@ nav a:hover {
 /* Responsiveness */
 @media (max-width: 1024px) {
     #liked-items-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 items per row for medium devices */
+        grid-template-columns: repeat(
+            2,
+            1fr
+        ); /* 2 items per row for medium devices */
     }
 }
 

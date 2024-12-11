@@ -1,8 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
     // Define array to store liked items
     const mainPage = document.getElementById("main-page");
-    let currentIdx = 0;
     let items = [];
+    let currentIdx = parseInt(localStorage.getItem("currentIdx"), 10) || 0;
+
+    // Save the current index to localStorage
+    const saveCurrentIndex = () => {
+        localStorage.setItem("currentIdx", currentIdx);
+    };
 
     // Fetch items from the server
     const fetchItems = async () => {
@@ -28,6 +33,56 @@ document.addEventListener("DOMContentLoaded", async () => {
         } catch (error) {
             console.error("Error fetching liked items:", error);
             return [];
+        }
+    };
+
+    // Function to remove an item from the database
+    const removeItem = async (item) => {
+        try {
+            const response = await fetch("/liked-items", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: item.itemName,
+                    description: item.itemDescription,
+                    image: item.itemImage,
+                }),
+            });
+
+            if (response.ok) {
+                console.log("Liked item removed from database");
+            } else {
+                console.error("Failed to remove liked item from database");
+            }
+        } catch (error) {
+            console.error("Error removing liked item from database:", error);
+        }
+    };
+
+    // Function to add an item to the database
+    const addItem = async (item) => {
+        try {
+            const response = await fetch("/liked-items", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: item.itemName,
+                    description: item.itemDescription,
+                    image: item.itemImage,
+                }),
+            });
+
+            if (response.ok) {
+                console.log("Liked item added to database");
+            } else {
+                console.error("Failed to add liked item to database");
+            }
+        } catch (error) {
+            console.error("Error adding liked item to database:", error);
         }
     };
 
@@ -119,13 +174,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Go back one index (only if not already at the first index)
             if (currentIdx > 0) {
                 currentIdx--;
+                saveCurrentIndex();
+                handleAction(items[currentIdx], "redo");
                 displayItem();
             } else {
-                console.log("No previous items to redo.");
+                alert("No previous items to redo.");
             }
         });
     };
-
 
     // Function to handle like or dislike actions
     const handleAction = async (item, action) => {
@@ -141,58 +197,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Add item to likedItems array if not already liked
         if (action === "like" && !itemExists) {
-            // Save item to the database
-            try {
-                const response = await fetch("/liked-items", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        name: item.itemName,
-                        description: item.itemDescription,
-                        image: item.itemImage,
-                    }),
-                });
-
-                if (response.ok) {
-                    console.log("Liked item added to database");
-                } else {
-                    console.error("Failed to add liked item to database");
-                }
-            } catch (error) {
-                console.error("Error adding liked item to database:", error);
-            }
-        } else if (action === "dislike" && itemExists) {
-            // Remove item from the database
-            try {
-                const response = await fetch("/liked-items", {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        name: item.itemName,
-                        description: item.itemDescription,
-                        image: item.itemImage,
-                    }),
-                });
-
-                if (response.ok) {
-                    console.log("Liked item removed from database");
-                } else {
-                    console.error("Failed to remove liked item from database");
-                }
-            } catch (error) {
-                console.error(
-                    "Error removing liked item from database:",
-                    error
-                );
-            }
+            addItem(item);
+        } else if (
+            (action === "dislike" && itemExists) ||
+            (action === "redo" && itemExists)
+        ) {
+            removeItem(item);
         }
 
         // Refresh item
-        currentIdx++;
+        if (action !== "redo") {
+            currentIdx++;
+        }
+        saveCurrentIndex();
         displayItem();
     };
 
